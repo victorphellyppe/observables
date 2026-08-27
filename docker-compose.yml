@@ -1,0 +1,17 @@
+version: "3.9"
+
+services:
+  obeservables:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: obeservables
+    ports:
+      - "4200:4200"
+    volumes:
+      # Mantém o código sincronizado com o host para hot-reload
+      - .:/app
+      # Evita que o node_modules do host (se existir) sobrescreva o do container
+      - /app/node_modules
+    stdin_open: true
+    tty: true

@@ -1,7 +1,7 @@
 import { Component, OnInit  } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { FormsModule } from '@angular/forms';  // 👈 faltando isso
-
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -15,18 +15,32 @@ export class AppComponent implements OnInit  {
   
   inputProduto: string = '';
   // inicio a promise
-  private timer = new Promise<string>((resolver, reject)=> {
-    console.log('Promise iniciada');  
+  // private timer = new Promise<string>((resolver, reject)=> {
+  //   console.log('Promise iniciada');  
+  //   setTimeout(() => {
+  //     resolver("Resolvido a promise")
+  //   }, 2000)
+  // })
+
+  // Observable
+  private timer$ = new Observable<string>(sub => {
+   console.log('Observable iniciada');  
+
     setTimeout(() => {
-      resolver("Resolvido a promise")
+      sub.next("Resolvido observable")
     }, 2000)
   })
 
 
   ngOnInit() {
     //uso a promise e resolvo e ela morre
-    this.timer.then((value) => {
+    // this.timer.then((value) => {
+    //   console.log(value);
+    // })
+
+    this.timer$.subscribe((value) => {
       console.log(value);
+      // mostra o next mas fica na memoria do computador
     })
   }
 
